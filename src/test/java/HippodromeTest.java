@@ -18,6 +18,8 @@ import static org.mockito.Mockito.times;
 class HippodromeTest {
     private static final String HORSE_NOT_NULL = "Horses cannot be null.";
     private static final String HORSE_NOT_EMPTY = "Horses cannot be empty.";
+    private static final int NUM_ITERATIONS = 50;
+    private static final int NUM_OF_HORSES = 30;
 
     @Test
     @DisplayName("Constructor: passing null, checking - exception")
@@ -57,7 +59,7 @@ class HippodromeTest {
     @DisplayName("Checking getHorses() method")
     void getHorses() {
         List<Horse> expectedHorsesList = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < NUM_OF_HORSES; i++) {
             expectedHorsesList.add(mock(Horse.class));
         }
         List<Horse> actualHorsesList = new Hippodrome(expectedHorsesList).getHorses();
@@ -69,7 +71,7 @@ class HippodromeTest {
     void move() {
         Horse mockHorse = mock(Horse.class);
         List<Horse> horses = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < NUM_ITERATIONS; i++) {
             horses.add(mockHorse);
         }
         Hippodrome hippodrome = new Hippodrome(horses);

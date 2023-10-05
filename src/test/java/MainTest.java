@@ -6,20 +6,23 @@ import org.junit.jupiter.api.Timeout;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+
 class MainTest {
     @Test
-    @Disabled
+//    @Disabled
     @DisplayName("Check the execution time in the main method (< 22 sec)")
-    @Timeout(value = 22)
+//    @Timeout(value = 22)
     void timeOutTest() {
-        PrintStream consoleStream = System.out;
-        System.setOut(new PrintStream(OutputStream.nullOutputStream()));
-        try {
-            Main.main(null);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            System.setOut(consoleStream);
-        }
+        String[] args = new String[]{"arg1", "arg2"};
+        assertTimeoutPreemptively(java.time.Duration.ofSeconds(22), () -> {
+            PrintStream consoleStream = System.out;
+            System.setOut(new PrintStream(OutputStream.nullOutputStream()));
+            try {
+                Main.main(args);
+            } finally {
+                System.setOut(consoleStream);
+            }
+        });
     }
 }
